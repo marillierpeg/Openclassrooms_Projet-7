@@ -1,5 +1,7 @@
 import csv
 import itertools
+import time
+import math
 
 
 datas_path = "./datas/data1.csv"
@@ -55,13 +57,15 @@ def combinaisons_list(shares_updated):
 
 
 def combinaisons_list_alt(shares_updated):
+    start_time = time.perf_counter()
     n = len(shares_updated)
     each_combinations = []
     for i in range(1, n+1):
         for combination in itertools.combinations(shares_updated, i):
             each_combinations.append(list(combination))
+    end_time = time.perf_counter()
+    print(f"{round(((end_time + start_time) / 1000000), 2)} secondes")
     print("Nombre de combinaisons possibles avec itertools : ", len(each_combinations))
-
 
 
 earnings_calculation(datas_path)
