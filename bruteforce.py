@@ -1,8 +1,8 @@
 import csv
 import itertools
 import time
-import math
-
+import psutil
+import os
 
 datas_path = "./datas/data1.csv"
 output_file_path = "./datas/sortie.csv"
@@ -37,8 +37,9 @@ def create_shares_list(path):
 
 def combinaisons_list(shares_updated):
     """Liste toutes les combinaisons possibles"""
+    start_time = time.time()
     n = len(shares_updated)
-    each_combinations = []
+    all_combinations = []
     for i in range(1, 2 ** n):
         # Chaque entier i représente une combinaison unique
         # On parcourt tous les entiers i de 0 à 2^n-1 (n-1 pour ne pas prendre en compte la combinaisons vide)
@@ -50,22 +51,31 @@ def combinaisons_list(shares_updated):
                 # L'opérateur & qui vérifie bit à bit
                 combination.append(shares_updated[j])
                 # Si le bit est à 1 l'élément est ajouté à la liste combination
-        each_combinations.append(combination)
-
-    print("Nombre de combinaisons possibles : ", len(each_combinations))
-    return each_combinations
+        all_combinations.append(combination)
+        end_time = time.time()
+    print("Nombre de combinaisons possibles : ", len(all_combinations))
+    print(f"{(round(end_time - start_time, 4))} secondes")
+    print(f"{psutil.virtual_memory().percent}% de RAM utilisés")
+    return all_combinations
 
 
 def combinaisons_list_alt(shares_updated):
-    start_time = time.perf_counter()
+    start_time = time.time()
     n = len(shares_updated)
-    each_combinations = []
+    all_combinations = []
     for i in range(1, n+1):
         for combination in itertools.combinations(shares_updated, i):
-            each_combinations.append(list(combination))
-    end_time = time.perf_counter()
-    print(f"{round(((end_time + start_time) / 1000000), 2)} secondes")
-    print("Nombre de combinaisons possibles avec itertools : ", len(each_combinations))
+            all_combinations.append(list(combination))
+    end_time = time.time()
+    # p = psutil.Process()
+    print("Nombre de combinaisons possibles avec itertools : ", len(all_combinations))
+    print(f"{(round(end_time - start_time, 4))} secondes")
+    # print(f"{p.memory_info().rss} RAM utilisés")
+    pid = os.getpid()
+    python_process = psutil.Process(pid)
+    memoryUse = python_process.memory_info()[0]/2.**30  # memory use in GB
+    print('memory use:', memoryUse)
+    return all_combinations
 
 
 earnings_calculation(datas_path)
