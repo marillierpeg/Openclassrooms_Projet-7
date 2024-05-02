@@ -14,7 +14,7 @@ def earnings_calculation(path):
         reader = csv.reader(data_file)
         writer = csv.writer(output_file)
         header = next(reader)
-        header.insert(3, "Earnings")
+        header.insert(3, "earnings")
         writer.writerow(header)
         for row in reader:
             price = int(row[1])
@@ -78,6 +78,31 @@ def combinaisons_list_alt(shares_updated):
     return all_combinations
 
 
+def shares_profits_costs(combinaisons):
+    '''retourne coût et gain de chaque combinaison'''
+    for combinaison in combinaisons:
+        price = combinaison[0]["price"]
+        earning = combinaison[0]["earnings"]
+    return price, earning
+
+
+def best_combinaison(combination_list):
+    best_match = []
+    budget = 500
+    best_earning = 0
+    best_price = 0
+    price, earning = shares_profits_costs(combination_list)
+    for combination in combination_list:
+        if float(price) <= budget and float(earning) > float(best_earning):
+            best_match = combination
+            best_earning = earning
+            best_price = price
+    print(best_match)
+    return best_match, best_earning, best_price
+
+
 earnings_calculation(datas_path)
-combinaisons_list(create_shares_list(output_file_path))
-combinaisons_list_alt(create_shares_list(output_file_path))
+all_combinaisons_list = combinaisons_list(create_shares_list(output_file_path))
+all_combination_list_alt = combinaisons_list_alt(create_shares_list(output_file_path))
+best_combinaison(all_combinaisons_list)
+best_combinaison(all_combination_list_alt)
