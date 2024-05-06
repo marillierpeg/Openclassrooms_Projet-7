@@ -78,11 +78,13 @@ def combinaisons_list_alt(shares_updated):
     return all_combinations
 
 
-def shares_profits_costs(combinaisons):
-    '''retourne coût et gain de chaque combinaison'''
-    for combinaison in combinaisons:
-        price = combinaison[0]["price"]
-        earning = combinaison[0]["earnings"]
+def shares_profits_costs(combinaison):
+    '''retourne coût et gain d'une combinaison'''
+    price = 0
+    earning = 0
+    for share in combinaison:
+        price += float(share["price"])
+        earning += float(share["earnings"])
     return price, earning
 
 
@@ -91,9 +93,9 @@ def best_combinaison(combination_list):
     budget = 500
     best_earning = 0
     best_price = 0
-    price, earning = shares_profits_costs(combination_list)
     for combination in combination_list:
-        if float(price) <= budget and float(earning) > float(best_earning):
+        price, earning = shares_profits_costs(combination)
+        if price <= budget and earning > best_earning:
             best_match = combination
             best_earning = earning
             best_price = price
