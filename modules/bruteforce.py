@@ -1,5 +1,4 @@
-from base import calculate_RAM_and_time
-from base import shares_to_list, shares_profits_costs
+from modules.base import shares_profits_costs, calculate_RAM_and_time, shares_to_list, earnings_calculation
 
 import itertools
 
@@ -72,15 +71,17 @@ def best_combination(combination_list):
     return best_combination, best_earning, best_price
 
 
-def display_bruteforce_solution1():
+def display_bruteforce_solution1(path):
     print("Lancement du programme")
-    shares_list = shares_to_list("./datas/data1.csv")
+    new_path = earnings_calculation(path)
+    shares_list = shares_to_list(new_path)
     all_combinaisons_list = combinaisons_list(shares_list)
     best_combination(all_combinaisons_list)
 
 
-def display_bruteforce_solution2():
+def display_bruteforce_solution2(path):
     print("Lancement du programme")
-    shares_list = shares_to_list("./datas/data1.csv")
+    new_path = earnings_calculation(path)
+    shares_list = shares_to_list(new_path)
     all_combinaisons_list = combinaisons_list_alt(shares_list)
     best_combination(all_combinaisons_list)

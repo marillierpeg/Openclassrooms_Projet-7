@@ -1,6 +1,5 @@
-import bruteforce
-import optimized
-# import optimized
+from modules.bruteforce import display_bruteforce_solution1, display_bruteforce_solution2
+from modules.optimized import display_optimized_solution
 
 
 def main():
@@ -16,11 +15,11 @@ def main():
         user_choice = input("Quelle solution souhaitez vous utiliser?")
 
         if user_choice == "1":
-            bruteforce.display_bruteforce_solution1()
+            display_bruteforce_solution1("./datas/data1.csv")
         elif user_choice == "2":
-            bruteforce.display_bruteforce_solution2()
+            display_bruteforce_solution2("./datas/data1.csv")
         elif user_choice == "3":
-            optimized.display_optimized_solution()
+            display_optimized_solution("./datas/data1.csv")
         elif user_choice == "4":
             pass
         elif user_choice == "5":

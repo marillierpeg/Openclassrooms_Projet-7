@@ -6,21 +6,29 @@ import pandas as pd
 
 def earnings_calculation(path):
     """
-    Calcule le gain par action et modifie csv en ajoutant 1 colonne earning
+    Calcule le gain par action et crée un csv en ajoutant 1 colonne earning
     Args :  chemin d'accès du fichier csv en paramètre
     """
-    datas = pd.read_csv(path)
-    datas["earning"] = (datas.price * datas.profit) / 100
-    datas.to_csv(path, index=False)
+    data = pd.read_csv(path)
+    raw_shares_list = data.to_dict(orient='records')
+
+    for share in raw_shares_list:
+        if float(share['price']) > 0 and float(share['profit']) > 0:
+            share["earning"] = (float(share["price"]) * float(share["profit"])) / 100
+
+    new_path = path[:-4] + "_ouptput.csv"
+    df = pd.DataFrame(raw_shares_list)
+    df.to_csv(new_path, index=False)
+    return new_path
 
 
-def shares_to_list(path):
+def shares_to_list(ouput_path):
     """
     Crée une liste d'actions à partir du csv donné
     Args : chemin d'accès du fichier csv
     Return :  une liste de dictionnaires à partir du csv
     """
-    with open(path, "r") as file:
+    with open(ouput_path, "r") as file:
         shares_list = []
         reader = csv.DictReader(file)
         for row in reader:
