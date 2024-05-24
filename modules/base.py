@@ -11,28 +11,33 @@ def earnings_calculation(path):
     """
     data = pd.read_csv(path)
     raw_shares_list = data.to_dict(orient='records')
-
+    # convertit ce DataFrame en une liste de dictionnaires
+    # Chaque clé du dictionnaire correspond à un nom de colonne dans le DataFrame.
+    # La valeur associée à chq clé est une liste contenant les valeurs de cette colonne pour toutes les lignes.
+    filtered_shares_list = []
     for share in raw_shares_list:
         if float(share['price']) > 0 and float(share['profit']) > 0:
-            share["earning"] = (float(share["price"]) * float(share["profit"])) / 100
+            share["price"] = int(round(float(share["price"]) * 100, 0))
+            share["earnings"] = int(round(float(share["price"]) * float(share["profit"]) / 100))
+            filtered_shares_list.append(share)
 
     new_path = path[:-4] + "_ouptput.csv"
-    df = pd.DataFrame(raw_shares_list)
-    df.to_csv(new_path, index=False)
+    df = pd.DataFrame(filtered_shares_list)
+    df.to_csv(new_path, index=False, float_format="%.0f")
     return new_path
 
 
-def shares_to_list(ouput_path):
+def shares_to_list(output_path):
     """
     Crée une liste d'actions à partir du csv donné
     Args : chemin d'accès du fichier csv
     Return :  une liste de dictionnaires à partir du csv
     """
-    with open(ouput_path, "r") as file:
+    with open(output_path, "r") as file:
         shares_list = []
         reader = csv.DictReader(file)
         for row in reader:
-            shares_list.append(row)
+            shares_list.append(dict(row))
     return shares_list
 
 
@@ -69,5 +74,5 @@ def shares_profits_costs(combinaison):
     earning = 0
     for share in combinaison:
         price += float(share["price"])
-        earning += float(share["earning"])
+        earning += float(share["earnings"])
     return price, earning

@@ -52,7 +52,7 @@ def best_combination(combination_list):
     # Nous ne pouvons pas acheter une fraction d'action.
     # Nous pouvons dépenser au maximum 500 euros par client.
     best_combination = []
-    budget = 500
+    budget = 500 * 100
     best_earning = 0
     best_price = 0
     best_shares = []
@@ -64,10 +64,10 @@ def best_combination(combination_list):
             best_price = price
     for combinations in best_combination:
         best_shares.append(combinations["name"])
-    print(f"Meilleure combinaison pour un budget de {budget} € :")
+    print(f"Meilleure combinaison pour un budget de {budget / 100} € :")
     print(best_shares)
-    print(f"Coût total de cette combinaison : {best_price} €")
-    print(f"Gain total de cette combinaison : {round(best_earning, 2)} €")
+    print(f"Coût total de cette combinaison : {best_price / 100} €")
+    print(f"Gain total de cette combinaison : {round((best_earning / 100), 2)} €")
     return best_combination, best_earning, best_price
 
 

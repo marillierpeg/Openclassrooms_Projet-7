@@ -21,9 +21,9 @@ def main():
         elif user_choice == "3":
             display_optimized_solution("./datas/data1.csv")
         elif user_choice == "4":
-            pass
+            display_optimized_solution("./datas/dataset1.csv")
         elif user_choice == "5":
-            pass
+            display_optimized_solution("./datas/dataset2.csv")
         elif user_choice == "6":
             break
         else:
