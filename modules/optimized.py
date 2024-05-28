@@ -46,10 +46,27 @@ def best_combination(shares_list, budget):
     return best_combination
 
 
+def earning_cost(shares_list, budget):
+    best_shares_combination = best_combination(shares_list, budget)
+    earning = 0
+    cost = 0
+    for best_share in best_shares_combination:
+        for share in shares_list:
+            if share["name"] == best_share:
+                earning += float(share["earnings"])
+                cost += float(share["price"])
+                break
+    earning = earning / 100
+    cost = cost / 100
+
+    return best_shares_combination, cost, earning
+
+
 def display_optimized_solution(path):
     print("Lancement du programme")
     new_path = earnings_calculation(path)
     shares_list = shares_to_list(new_path)
-    best_shares_combination = best_combination(shares_list, 500*100)
-    print(f"la meilleure combinaison d'achat est la suivante : {best_shares_combination}")
+    best_shares_combination, cost, earning = earning_cost(shares_list, 500*100)
+    print(f"La meilleure combinaison d'achat est la suivante : {best_shares_combination}")
+    print(f"Cette combinaison a un coût total de  {cost}€ et rapportera {earning}€")
     print("---------------------------------------------------------------")
