@@ -59,7 +59,7 @@ def calculate_RAM_and_time(function):
         total_memory_usage = memory_usage / (1024*1024)
         print("---------------------------------------------------------------")
         print(f"temps d'exécution du programme : {time_spent:.2f} secondes")
-        print(f"Mémoire utilisée : {total_memory_usage} MiB")
+        print(f"Mémoire utilisée : {total_memory_usage} Mio")
         print("---------------------------------------------------------------")
         return result
     return wrapper

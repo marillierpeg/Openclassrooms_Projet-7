@@ -4,13 +4,14 @@ from modules.base import shares_to_list, calculate_RAM_and_time, earnings_calcul
 @calculate_RAM_and_time
 def best_combination(shares_list, budget):
     """
-    Utilisation de la programmation dynamique pour déterminer la meilleure combinaison
     Args : liste d'actions, budget max
     Return : meilleure combinaison d'actions avec le budget donné
     """
 
     number_of_shares = len(shares_list)
     # Initialiser une liste à 2 dimensions pour stocker les résultats intermédiaires
+    # Le "+1" signifie qu'il y aura une rangée pour chaque nombre possible d'actions / budget,
+    # y compris 0 action jusqu'à la valeur maximale
     results = [[0 for _ in range(budget + 1)] for _ in range(number_of_shares + 1)]
     # Initialiser une liste à 2 dimensions pour stocker les actions sélectionnées pour chaque budget
     chosen_shares = [[[] for _ in range(budget + 1)] for _ in range(number_of_shares + 1)]
