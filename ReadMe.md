@@ -4,7 +4,7 @@
 
 
 # Présentation
-Ce programme a pour but de créer un algorithme qui déterminera la combinaison d'actions en bourse en se basant sur des fichiers donnés.
+Ce programme a pour but de créer un algorithme qui déterminera la combinaison d'actions en bourse la plus rentable en se basant sur des fichiers donnés.
 
 Deux versions d'algorithmes sont présentées dans ce programme: 
 * Une version bruteforce qui va lister toutes les combinaisons possibles avant de choisir la meilleure.
